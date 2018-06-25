@@ -10,10 +10,10 @@ function Player(game) {
   this.status = 'idle';
   this.canClimb = false;
 
-  this.ratio = 416 / 454;
+  this.ratio = 275 / 380;
   this.image = new Image();
   this.image.src = "images/girl/idle.png";
-  this.image.frames = 16;
+  this.image.frames = 10;
   this.image.frameIndex = 0;
 
   this.cont = 0;
@@ -98,23 +98,25 @@ Player.prototype.events = function() {
   document.onkeydown = function(e) {
     switch(e.keyCode) {
       case 37: // Arrow left
-        this.speedX = -1;
+        this.speedX = -2;
         this.changeStatus('walk-backwards');
         break;
       case 38: // Arrow up
         if (this.canClimb) {
           this.gravity = 0;
           this.speedY = -1;
+          this.changeStatus('climb');
         }
         break;
       case 39: // Arrow right
-        this.speedX = 1;
+        this.speedX = 2;
         this.changeStatus('walk');
         break;
       case 40: // Arrow down
         if (this.canClimb) {
           this.gravity = 0;
           this.speedY = 1;
+          this.changeStatus('climb');
         }
         break;
     }
@@ -133,6 +135,7 @@ Player.prototype.events = function() {
       case 38: // Arrow up
       case 40: // Arrow down
         this.speedY = 0;
+        this.changeStatus('idle');
         break;
     }
   }.bind(this);
@@ -144,17 +147,6 @@ Player.prototype.changeStatus = function(status) {
     this.cont = 0;
     this.image.frameIndex = 0;
     this.image.src = 'images/girl/' + status + '.png';
-
-    switch(status) {
-      case 'idle':
-      case 'idle-backwards':
-        this.image.frames = 16;
-        break;
-      case 'walk':
-      case 'walk-backwards':
-        this.image.frames = 20;
-        break;
-    }
   }
 }
 
