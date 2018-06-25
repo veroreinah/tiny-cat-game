@@ -7,7 +7,9 @@ function Player(game) {
   this.speedY = 0;
   this.gravity = 0.1;
   this.userPull = 0;
+
   this.status = 'idle';
+  this.canClimb = false;
 
   this.ratio = 416 / 454;
   this.image = new Image();
@@ -23,7 +25,7 @@ function Player(game) {
   this.limitX_left = 10;
   this.limitX_right = this.game.canvas.width - this.width - 10;
   this.limitY_bottom = this.game.canvas.height - this.height - 10;
-  this.limitY_up = 10;
+  this.limitY_top = 10;
 
   this.events();
 }
@@ -62,6 +64,10 @@ Player.prototype.animateImg = function() {
 };
 
 Player.prototype.move = function() {
+  if (!this.canClimb) {
+    this.gravity = 0.1;
+  }
+
   this.moveY();
   this.moveX();
 };
@@ -73,8 +79,8 @@ Player.prototype.moveY = function() {
   if (this.y > this.limitY_bottom) {
     this.y = this.limitY_bottom;
     this.speedY = 0;
-  } else if (this.y < this.limitY_up) {
-    this.y = this.limitY_up;
+  } else if (this.y < this.limitY_top) {
+    this.y = this.limitY_top;
     this.speedY = 0;
   }
 }
@@ -97,16 +103,20 @@ Player.prototype.events = function() {
         this.changeStatus('walk-backwards');
         break;
       case 38: // Arrow up
-        this.gravity = 0;
-        this.speedY = -1;
+        if (this.canClimb) {
+          this.gravity = 0;
+          this.speedY = -1;
+        }
         break;
       case 39: // Arrow right
         this.speedX = 1;
         this.changeStatus('walk');
         break;
       case 40: // Arrow down
-        this.gravity = 0;
-        this.speedY = 1;
+        if (this.canClimb) {
+          this.gravity = 0;
+          this.speedY = 1;
+        }
         break;
     }
   }.bind(this);
@@ -123,7 +133,6 @@ Player.prototype.events = function() {
         break;
       case 38: // Arrow up
       case 40: // Arrow down
-        this.gravity = 0.1;
         this.speedY = 0;
         break;
     }
