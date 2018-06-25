@@ -158,3 +158,15 @@ Player.prototype.changeStatus = function(status) {
     }
   }
 }
+
+Player.prototype.checkPosition = function() {
+  var playerX = this.x + (this.width / 2);
+  this.game.stairs.forEach(function(s) {
+    if (playerX >= s.x && playerX <= s.x + s.width) {
+      this.canClimb = true;
+      this.limitY_top = s.y - this.height;
+    } else {
+      this.canClimb = false;
+    }
+  }.bind(this));
+}

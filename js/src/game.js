@@ -20,10 +20,10 @@ Game.prototype.update = function(time) {
 
   this.time = time;
   this.background.update();
+  this.player.checkPosition();
 
   this.draw();
   this.move();
-  this.checkUserPosition();
 } 
 
 Game.prototype.clear = function() {
@@ -47,16 +47,4 @@ Game.prototype.addStairs = function() {
   for (var i = 0; i < this.totalStairs; i++) {
     this.stairs.push(new Stairs(this));
   }
-}
-
-Game.prototype.checkUserPosition = function() {
-  var playerX = this.player.x + (this.player.width / 2);
-  this.stairs.forEach(function(s) {
-    if (playerX >= s.x && playerX <= s.x + s.width) {
-      this.player.canClimb = true;
-      this.player.limitY_top = s.y - this.player.height;
-    } else {
-      this.player.canClimb = false;
-    }
-  }.bind(this));
 }
