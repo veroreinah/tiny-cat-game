@@ -1,6 +1,11 @@
 function Background(game) {
   this.game = game;
+  this.totalClouds = 4;
   this.clouds = [];
+
+  this.ground = {};
+  this.ground.image = new Image();
+  this.ground.image.src = 'images/platforms/ground.png';
 
   this.setUp();
 }
@@ -8,7 +13,7 @@ function Background(game) {
 Background.prototype.setUp = function() {
   this.nextTime = 0;
 
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < this.totalClouds; i++) {
     this.clouds.push(new Cloud(this.game));
   }
 }
@@ -29,9 +34,21 @@ Background.prototype.update = function() {
 }
 
 Background.prototype.draw = function() {
+  this.drawGround();
   this.clouds.forEach(function(cloud) {
     cloud.draw();
   });
+}
+
+Background.prototype.drawGround = function() {
+  this.game.ctx.save();
+
+  var pattern = this.game.ctx.createPattern(this.ground.image, 'repeat-x');
+  this.game.ctx.fillStyle = pattern;
+  this.game.ctx.translate(0, this.game.canvas.height - 90);
+  this.game.ctx.fillRect(0, 0, this.game.canvas.width, 90);
+
+  this.game.ctx.restore();
 }
 
 Background.prototype.move = function() {

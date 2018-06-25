@@ -2,7 +2,7 @@ function Player(game) {
   this.game = game;
   this.playerSize = 60;
   this.x = 20;
-  this.y = this.game.canvas.height / 2 - this.playerSize / 2;
+  this.y = 2 * this.game.canvas.height / 3 - this.playerSize / 2;
   this.speedX = 0;
   this.speedY = 0;
   this.gravity = 0.1;
@@ -24,7 +24,7 @@ function Player(game) {
 
   this.limitX_left = 10;
   this.limitX_right = this.game.canvas.width - this.width - 10;
-  this.limitY_bottom = this.game.canvas.height - this.height - 10;
+  this.limitY_bottom = this.game.canvas.height - this.height - 85;
   this.limitY_top = 10;
 
   this.events();
@@ -161,7 +161,7 @@ Player.prototype.changeStatus = function(status) {
 
 Player.prototype.checkPosition = function() {
   var playerX = this.x + (this.width / 2);
-  this.game.stairs.forEach(function(s) {
+  this.game.ladders.forEach(function(s) {
     if (playerX >= s.x && playerX <= s.x + s.width) {
       this.canClimb = true;
       this.limitY_top = s.y - this.height;
