@@ -9,4 +9,6 @@ body {
 
 #canvas {
   background: #82CAFF;
+  height: 100vh;
+  width: 100vw;
 }

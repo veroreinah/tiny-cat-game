@@ -13,14 +13,15 @@ Background.prototype.setUp = function() {
   }
 }
 
-Background.prototype.update = function(time) {
+Background.prototype.update = function() {
   this.checkBounds();
 
-  if (this.nextTime === 0 && time !== -1) {
-    this.nextTime = time + Math.floor(Math.random() * (35 - 10) + 10);
+  if ((this.nextTime === 0 && this.game.time !== -1)
+      || (this.nextTime < this.game.time)) {
+    this.nextTime = this.game.time + Math.floor(Math.random() * (35 - 10) + 10);
   }
 
-  if (this.nextTime === time) {
+  if (this.nextTime === this.game.time) {
     this.clouds.push(new Cloud(this.game, -100));
 
     this.nextTime += Math.floor(Math.random() * (35 - 10) + 10);
