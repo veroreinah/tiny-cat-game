@@ -32,11 +32,11 @@ Game.prototype.clear = function() {
 
 Game.prototype.draw = function() {
   this.background.draw();
-  this.ladders.forEach(function(s) {
-    s.draw();
+  this.ladders.forEach(function(l) {
+    l.draw();
   });
-  this.platforms.forEach(function(s) {
-    s.draw();
+  this.platforms.forEach(function(p) {
+    p.draw();
   });
   this.player.draw();
 }

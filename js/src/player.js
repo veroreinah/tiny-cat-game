@@ -6,7 +6,6 @@ function Player(game) {
   this.speedX = 0;
   this.speedY = 0;
   this.gravity = 0.1;
-  this.userPull = 0;
 
   this.status = 'idle';
   this.canClimb = false;
@@ -73,7 +72,7 @@ Player.prototype.move = function() {
 };
 
 Player.prototype.moveY = function() {
-  this.speedY += (this.gravity - this.userPull);
+  this.speedY += this.gravity;
   this.y += this.speedY;
 
   if (this.y > this.limitY_bottom) {
@@ -160,13 +159,47 @@ Player.prototype.changeStatus = function(status) {
 }
 
 Player.prototype.checkPosition = function() {
+  this.checkPositionLadders();
+  this.checkPositionPlatforms();
+}
+
+Player.prototype.checkPositionLadders = function() {
   var playerX = this.x + (this.width / 2);
-  this.game.ladders.forEach(function(s) {
-    if (playerX >= s.x && playerX <= s.x + s.width) {
+  var onLadder = false;
+
+  for (var i = 0; i < this.game.ladders.length; i++) {
+    var l = this.game.ladders[i];
+    if (playerX >= l.x && playerX <= l.x + l.width) {
       this.canClimb = true;
-      this.limitY_top = s.y - this.height;
-    } else {
-      this.canClimb = false;
+      this.gravity = 0;
+      this.limitY_top = l.y - this.height;
+      this.limitY_bottom = this.game.canvas.height - this.height - 85;
+      onLadder = true;
+      break;
     }
-  }.bind(this));
+  }
+
+  if (!onLadder) {
+    this.canClimb = false;
+    this.gravity = 0.1;
+  }
+}
+
+Player.prototype.checkPositionPlatforms = function() {
+  var playerX = this.x + (this.width / 2);
+  var playerY = this.y + this.height;
+  var onPlatform = false;
+
+  for (var i = 0; i < this.game.platforms.length; i++) {
+    var p = this.game.platforms[i];
+    if (playerX >= p.x && playerX <= p.x + p.width && playerY <= p.y) {
+      this.limitY_bottom = p.y - this.height;
+      onPlatform = true;
+      break;
+    }
+  }
+
+  if (!onPlatform) {
+    this.limitY_bottom = this.game.canvas.height - this.height - 85;
+  }
 }
