@@ -1,14 +1,14 @@
 window.onload = function() {
   var canvas = document.getElementById("canvas");
   var startBtn = document.getElementById('start-button');
-  var itemsToFindWrp = document.getElementsByClassName('objects-to-find');
+  var header = document.getElementsByTagName('header')[0];
   var game;
 
   startBtn.onclick = function() {
     startGame();
 
     startBtn.style.display = 'none';
-    itemsToFindWrp[0].style.opacity = 1;
+    header.classList.add('small');
   };
 
   function startGame() {
