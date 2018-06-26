@@ -21,8 +21,26 @@ header {
   z-index: 1;
   padding: 10px 0 10px 10px;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+  text-align: center;
+}
+
+header h1 {
+  display: block;
+  font-size: 70px;
+  font-family: 'Pacifico', cursive;
+  margin-bottom: 20px;
+  text-shadow: 0 0 20px #e91e63;
+  color: #fff;
+  transition: font-size .8s;
+}
+
+header.small h1 {
+  font-size: 30px;
+  margin: 0;
+}
+
+header.small #start-button {
+  display: none;
 }
 
 #start-button {
@@ -58,7 +76,10 @@ header {
   display: flex;
   align-items: center;
   opacity: 0;
-  transition: opacity .5s;
+  transition: opacity .8s;
+  position: absolute;
+  right: 0;
+  top: 10px;
 }
 
 .objects-to-find .item {
@@ -96,4 +117,8 @@ header {
 
 .objects-to-find .item.cat img {
   height: 50px;
+}
+
+header.small .objects-to-find {
+  opacity: 1;
 }
