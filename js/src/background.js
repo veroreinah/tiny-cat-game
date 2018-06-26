@@ -1,4 +1,4 @@
-function Background(game) {
+function Background(game, finishY) {
   this.game = game;
   this.totalClouds = 4;
   this.clouds = [];
@@ -6,6 +6,13 @@ function Background(game) {
   this.ground = {};
   this.ground.image = new Image();
   this.ground.image.src = 'images/platforms/ground.png';
+
+  this.finishX = this.game.canvas.width;
+  this.finishY = this.game.canvas.height - 85;
+
+  this.finishSign = {};
+  this.finishSign.image = new Image();
+  this.finishSign.image.src = 'images/misc/sign.png';
 
   this.setUp();
 }
@@ -35,6 +42,7 @@ Background.prototype.update = function() {
 
 Background.prototype.draw = function() {
   this.drawGround();
+  this.drawFinishSign();
   this.clouds.forEach(function(cloud) {
     cloud.draw();
   });
@@ -47,6 +55,20 @@ Background.prototype.drawGround = function() {
   this.game.ctx.fillStyle = pattern;
   this.game.ctx.translate(0, this.game.canvas.height - 90);
   this.game.ctx.fillRect(0, 0, this.game.canvas.width, 90);
+
+  this.game.ctx.restore();
+}
+
+Background.prototype.drawFinishSign = function() {
+  this.game.ctx.save();
+
+  this.game.ctx.drawImage(
+    this.finishSign.image,
+    this.finishX - this.finishSign.image.width - 20,
+    this.finishY - this.finishSign.image.height,
+    this.finishSign.image.width,
+    this.finishSign.image.height
+  );
 
   this.game.ctx.restore();
 }
