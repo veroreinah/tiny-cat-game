@@ -10,6 +10,8 @@ function Game(canvas) {
 }
 
 Game.prototype.setUp = function() {
+  this.objectsFound = false;
+
   switch (this.currentSetting) {
     case 1:
       this.setting = new Setting1(this);
@@ -33,11 +35,17 @@ Game.prototype.update = function(time) {
   this.time = time;
   this.background.update();
   this.player.checkPosition();
-  this.objects.forEach(function(o, index) {
-    if (o.checkPlayerPosition()) {
-      this.objects.splice(index, 1);
-    }
-  }.bind(this));
+  if (!this.objectsFound) {
+    this.objects.forEach(function(o, index) {
+      if (o.checkPlayerPosition()) {
+        if (o.className !== 'cat') {
+          this.objects.splice(index, 1);
+        } else {
+          // this.player.record = true;
+        }
+      }
+    }.bind(this));
+  }
   this.hasFinished();
 
   this.draw();
@@ -64,6 +72,11 @@ Game.prototype.draw = function() {
 
 Game.prototype.move = function() {
   this.background.move();
+  // this.objects.forEach(function(o) {
+  //   if (o.className === 'cat' && o.found) {
+  //     o.move();
+  //   }
+  // });
   this.player.move();
 }
 
@@ -117,7 +130,9 @@ Game.prototype.addObjects = function() {
 }
 
 Game.prototype.hasFinished = function() {
-  if (this.objects.length === 0) {
+  if (this.objects.length === 1 && this.objects[0].found) {
+    this.objectsFound = true;
+
     var playerBottomY = this.player.y + this.player.height;
     var playerRightX = this.player.x + this.player.width;
     var playerX = this.player.x;
@@ -129,7 +144,7 @@ Game.prototype.hasFinished = function() {
       }
 
       if (playerBottomY === this.setting.finish.y
-          && playerRightX > this.setting.finish.x) {
+          && playerRightX > this.setting.finish.x + this.player.width * 2) {
         this.nextSetting();
       }
     }
@@ -141,7 +156,7 @@ Game.prototype.hasFinished = function() {
       }
 
       if (playerBottomY === this.setting.finish.y
-          && playerRightX < this.setting.finish.x) {
+          && playerRightX < this.setting.finish.x - this.player.width) {
         this.nextSetting();
       }
     }

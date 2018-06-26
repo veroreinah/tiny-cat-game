@@ -25,6 +25,9 @@ function Player(game) {
   this.limitY_bottom = this.game.canvas.height - this.height - 85;
   this.limitY_top = 10;
 
+  // this.record = false;
+  // this.history = [];
+
   this.events();
 }
 
@@ -68,6 +71,10 @@ Player.prototype.move = function() {
 
   this.moveY();
   this.moveX();
+
+  // if (this.record) {
+  //   this.saveHistory();
+  // }
 };
 
 Player.prototype.moveY = function() {
@@ -194,3 +201,11 @@ Player.prototype.checkPositionPlatforms = function() {
     this.limitY_bottom = this.game.canvas.height - this.height - 85;
   }
 }
+
+// Player.prototype.saveHistory = function() {
+//   this.history.push({
+//     x: this.x,
+//     y: this.y,
+//     status: this.status
+//   });
+// }
