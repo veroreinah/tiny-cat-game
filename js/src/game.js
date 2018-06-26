@@ -2,7 +2,7 @@ function Game(canvas) {
   this.canvas = canvas;
   this.ctx = canvas.getContext("2d");
   this.time = 0;
-  this.ladderWidth = 80;
+  this.ladderWidth = 70;
   this.platformItemWidth = 128;
 
   this.setUp();

@@ -6,13 +6,12 @@ function Platform(game, width, x, y) {
   this.y = y;
   this.centralTiles = this.width / 128 - 2;
 
-  this.ratio = 128 / 93;
-  this.leftImage = new Image();
-  this.leftImage.src = "images/platforms/platform-left.png";
-  this.centerImage = new Image();
-  this.centerImage.src = "images/platforms/platform-center.png";
-  this.rightImage = new Image();
-  this.rightImage.src = "images/platforms/platform-right.png";
+  // Images ratio: 128 / 93
+  var images = ['left', 'center', 'right'];
+  images.forEach(function(e) {
+    this[e + 'Image'] = new Image();
+    this[e + 'Image'].src = 'images/platforms/platform-' + e + '.png';
+  }.bind(this));
 }
 
 Platform.prototype.draw = function() {
