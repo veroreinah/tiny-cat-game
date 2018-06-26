@@ -4,13 +4,13 @@ function Game(canvas) {
   this.time = 0;
 
   this.totalSettings = 2;
-  this.setting = 2;
+  this.currentSetting = 1;
 
   this.setUp();
 }
 
 Game.prototype.setUp = function() {
-  switch (this.setting) {
+  switch (this.currentSetting) {
     case 1:
       this.setting = new Setting1(this);
       break;
@@ -154,9 +154,9 @@ Game.prototype.nextSetting = function() {
     items[i].classList.remove('found');
   }
 
-  this.setting++;
+  this.currentSetting++;
 
-  if (this.setting <= this.totalSettings) {
+  if (this.currentSetting <= this.totalSettings) {
     this.setUp();
   } else {
 

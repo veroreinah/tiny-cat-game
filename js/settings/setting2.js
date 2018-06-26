@@ -48,6 +48,11 @@ function Setting2(game) {
     },
     {
       width: this.platforms.sectionWidth * 2,
+      x: this.game.canvas.width - this.platforms.sectionWidth * 2,
+      y: this.game.canvas.height / 2 - 90
+    },
+    {
+      width: this.platforms.sectionWidth * 2,
       x: this.platforms.sectionWidth / 2,
       y: this.game.canvas.height * 3 / 4 - 90
     },
@@ -55,11 +60,6 @@ function Setting2(game) {
       width: this.platforms.sectionWidth * 3,
       x: this.game.canvas.width / 2,
       y: this.game.canvas.height * 3 / 4 - 90
-    },
-    {
-      width: this.platforms.sectionWidth * 2,
-      x: this.game.canvas.width - this.platforms.sectionWidth * 2,
-      y: this.game.canvas.height / 2 - 90
     }
   ];
 
