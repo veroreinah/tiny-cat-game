@@ -7,6 +7,7 @@
   <title>Tiny Cat</title>
 
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
   <script type="text/javascript" src="js/main.js"></script>
   <script type="text/javascript" src="js/src/game.js"></script>
@@ -15,10 +16,27 @@
   <script type="text/javascript" src="js/src/ladder.js"></script>
   <script type="text/javascript" src="js/src/platform.js"></script>
   <script type="text/javascript" src="js/src/player.js"></script>
+  <script type="text/javascript" src="js/src/objects.js"></script>
+  <script type="text/javascript" src="js/src/cat.js"></script>
+  <script type="text/javascript" src="js/src/yarn.js"></script>
+  <script type="text/javascript" src="js/src/fishbone.js"></script>
 </head>
 <body>
   <header>
-      <button id="start-button">Start Game</button>
+      <div>
+        <button id="start-button">Start Game</button>
+      </div>
+      <section class="objects-to-find">
+        <div class="item cat">
+          <img src="images/objects/cat/cat.png" alt="Cat">
+        </div>
+        <div class="item yarn">
+          <img src="images/objects/yarn.png" alt="Yarn ball">
+        </div>
+        <div class="item fishbone">
+          <img src="images/objects/fishbone.png" alt="Fishbone">
+        </div>
+      </section>
   </header>
   <canvas id="canvas" width="1000" height="600"></canvas>
 </body>

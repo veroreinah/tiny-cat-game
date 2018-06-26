@@ -11,6 +11,8 @@ function Game(canvas) {
 Game.prototype.setUp = function() {
   this.background = new Background(this);
   this.player = new Player(this);
+
+  this.addObjects();
   this.addLadders();
   this.addPlatforms();
 }
@@ -21,6 +23,11 @@ Game.prototype.update = function(time) {
   this.time = time;
   this.background.update();
   this.player.checkPosition();
+  this.objects.forEach(function(o, index) {
+    if (o.checkPlayerPosition()) {
+      this.objects.splice(index, 1);
+    }
+  }.bind(this));
 
   this.draw();
   this.move();
@@ -37,6 +44,9 @@ Game.prototype.draw = function() {
   });
   this.platforms.forEach(function(p) {
     p.draw();
+  });
+  this.objects.forEach(function(o) {
+    o.draw();
   });
   this.player.draw();
 }
@@ -71,6 +81,26 @@ Game.prototype.addPlatforms = function() {
       this.platformItemWidth * 2,
       this.canvas.width / 4 + this.ladderWidth + this.platformItemWidth * 1.5,
       this.canvas.height * 3 / 4 - 90
+    )
+  ];
+}
+
+Game.prototype.addObjects = function() {
+  this.objects = [
+    new Cat(
+      this,
+      this.canvas.width / 4 + this.ladderWidth + this.platformItemWidth * 1.5,
+      this.canvas.height * 3 / 4 - 90
+    ),
+    new Yarn(
+      this,
+      this.canvas.width / 4 + this.ladderWidth * 2,
+      this.canvas.height / 2 - 90
+    ),
+    new Fishbone(
+      this,
+      this.canvas.width / 4 + this.ladderWidth + this.platformItemWidth * 1.5,
+      this.canvas.height - 85
     )
   ];
 }

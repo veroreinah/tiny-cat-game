@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -18,7 +19,10 @@ header {
   left: 0;
   top: 0;
   z-index: 1;
-  padding: 10px;
+  padding: 10px 0 10px 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 #start-button {
@@ -48,4 +52,48 @@ header {
 #start-button:hover:after {
   width: 100%;
   left: 0;
+}
+
+.objects-to-find {
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transition: opacity .5s;
+}
+
+.objects-to-find .item {
+  position: relative;
+  padding: 0 10px;
+}
+
+.objects-to-find .item::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f00d";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 30px;
+  font-size: 28px;
+  color: #f44336;
+}
+
+.objects-to-find .item.found::after {
+  content: "\f00c";
+  color: #4caf50;
+}
+
+.objects-to-find .item img {
+  height: 30px;
+}
+
+.objects-to-find .item.cat:after {
+  line-height: 50px;
+}
+
+.objects-to-find .item.cat img {
+  height: 50px;
 }
