@@ -4,7 +4,7 @@ function Game(canvas) {
   this.time = 0;
 
   this.totalSettings = 2;
-  this.setting = 1;
+  this.setting = 2;
 
   this.setUp();
 }

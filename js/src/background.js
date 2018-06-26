@@ -39,10 +39,10 @@ Background.prototype.update = function() {
 
 Background.prototype.draw = function() {
   this.drawGround();
-  this.drawFinishSign();
   this.clouds.forEach(function(cloud) {
     cloud.draw();
   });
+  this.drawFinishSign();
 }
 
 Background.prototype.drawGround = function() {
