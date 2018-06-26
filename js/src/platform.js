@@ -4,7 +4,7 @@ function Platform(game, width, x, y) {
   this.height = 93;
   this.x = x;
   this.y = y;
-  this.centralTiles = this.width / 128 - 2;
+  this.centralTiles = this.width / this.game.setting.platforms.sectionWidth - 2;
 
   // Images ratio: 128 / 93
   var images = ['left', 'center', 'right'];

@@ -1,4 +1,4 @@
-function Background(game, finishY) {
+function Background(game) {
   this.game = game;
   this.totalClouds = 4;
   this.clouds = [];
@@ -6,9 +6,6 @@ function Background(game, finishY) {
   this.ground = {};
   this.ground.image = new Image();
   this.ground.image.src = 'images/platforms/ground.png';
-
-  this.finishX = this.game.canvas.width;
-  this.finishY = this.game.canvas.height - 85;
 
   this.finishSign = {};
   this.finishSign.image = new Image();
@@ -64,8 +61,8 @@ Background.prototype.drawFinishSign = function() {
 
   this.game.ctx.drawImage(
     this.finishSign.image,
-    this.finishX - this.finishSign.image.width - 20,
-    this.finishY - this.finishSign.image.height,
+    this.game.setting.finish.x - this.finishSign.image.width - 20,
+    this.game.setting.finish.y - this.finishSign.image.height,
     this.finishSign.image.width,
     this.finishSign.image.height
   );

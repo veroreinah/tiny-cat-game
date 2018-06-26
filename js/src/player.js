@@ -17,8 +17,8 @@ function Player(game) {
 
   this.height = 60;
   this.width = this.height * this.ratio;
-  this.x = 20;
-  this.y = 2 * this.game.canvas.height / 3 - this.height / 2;
+  this.x = this.game.setting.player.x;
+  this.y = this.game.setting.player.y;
 
   this.limitX_left = 10;
   this.limitX_right = this.game.canvas.width - this.width - 10;
