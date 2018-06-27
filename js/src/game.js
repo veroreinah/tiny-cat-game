@@ -12,6 +12,7 @@ function Game(canvas) {
 Game.prototype.setUp = function() {
   this.objectsFound = false;
   this.end = false;
+  this.effects = [];
 
   switch (this.currentSetting) {
     case 1:
@@ -61,6 +62,10 @@ Game.prototype.draw = function() {
   }.bind(this));
 
   this.player.draw();
+
+  this.effects.forEach(function(e) {
+    e.draw();
+  });
 }
 
 Game.prototype.move = function() {
@@ -144,6 +149,13 @@ Game.prototype.checkCollisions = function() {
   if (!this.objectsFound) {
     this.objects.forEach(function(o, index) {
       if (o.checkPlayerPosition()) {
+        this.effects.push(new Effect(
+          this,
+          o.x,
+          o.y + o.height,
+          (o.className === 'cat') ? 'hearts': 'star'
+        ));
+
         this.objects.splice(index, 1);
       }
     }.bind(this));
