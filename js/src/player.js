@@ -3,16 +3,26 @@ function Player(game) {
   this.speedX = 0;
   this.speedY = 0;
   this.contKeyPressed = 0;
-  this.gravity = 0.1;
+  this.gravity = 0.2;
 
   this.status = 'idle';
   this.canClimb = false;
 
   this.ratio = 275 / 380;
-  this.image = new Image();
-  this.image.src = "images/girl/idle.png";
-  this.image.frames = 10;
-  this.image.frameIndex = 0;
+
+  this.images = {};
+  var status = ['idle', 'idle-backwards', 'walk', 'walk-backwards', 'run', 'run-backwards', 'climb'];
+
+  status.forEach(function(item) {
+    this.images[item] = {};
+    this.images[item].image = new Image();
+    this.images[item].image.src = 'images/girl/' + item + '.png';
+  }.bind(this));
+
+  this.image = {
+    frames: 10,
+    frameIndex: 0
+  };
 
   this.cont = 0;
 
@@ -33,11 +43,11 @@ Player.prototype.draw = function() {
   this.game.ctx.save();
 
   this.game.ctx.drawImage(
-    this.image,
-    this.image.frameIndex * Math.floor(this.image.width / this.image.frames),
+    this.images[this.status].image,
+    this.image.frameIndex * Math.floor(this.images[this.status].image.width / this.image.frames),
     0,
-    Math.floor(this.image.width / this.image.frames),
-    this.image.height,
+    Math.floor(this.images[this.status].image.width / this.image.frames),
+    this.images[this.status].image.height,
     this.x,
     this.y,
     this.width,
@@ -64,7 +74,7 @@ Player.prototype.animateImg = function() {
 
 Player.prototype.move = function() {
   if (!this.canClimb) {
-    this.gravity = 0.1;
+    this.gravity = 0.2;
   }
 
   this.moveY();
@@ -155,7 +165,6 @@ Player.prototype.changeStatus = function(status) {
     this.status = status;
     this.cont = 0;
     this.image.frameIndex = 0;
-    this.image.src = 'images/girl/' + status + '.png';
   }
 }
 
@@ -182,7 +191,7 @@ Player.prototype.checkPositionLadders = function() {
 
   if (!onLadder) {
     this.canClimb = false;
-    this.gravity = 0.1;
+    this.gravity = 0.2;
   }
 }
 
