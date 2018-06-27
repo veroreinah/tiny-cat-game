@@ -5,10 +5,7 @@ function Cat(game, x, y, hidden) {
   this.image.frames = 10;
   this.image.frameIndex = 0;
 
-  // this.status = 'idle';
-
   this.cont = 0;
-  // this.historyCont = 0;
 
   this.height = 50;
   this.width = this.height * this.ratio;
@@ -50,25 +47,3 @@ Cat.prototype.animateImg = function() {
     }
   }
 }
-
-// Cat.prototype.move = function() {
-//   if (this.game.player.history.length > 0) {
-//     this.historyCont++;
-
-//     if (this.historyCont > 60) {
-//       var playerPrevStatus = this.game.player.history.shift();
-
-//       this.x = playerPrevStatus.x;
-//       this.y = playerPrevStatus.y + this.game.player.height - this.height;
-      
-//       if (this.status !== playerPrevStatus.status) {
-//         this.status = (playerPrevStatus.status !== 'climb') ? playerPrevStatus.status : 'walk';
-//         this.cont = 0;
-//         this.image.frameIndex = 0;
-//         this.image.src = 'images/objects/cat/' + this.status + '.png';
-//       }
-
-//       this.historyCont = 120;
-//     }
-//   }
-// }

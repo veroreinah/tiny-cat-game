@@ -64,11 +64,6 @@ Game.prototype.draw = function() {
 
 Game.prototype.move = function() {
   this.background.move();
-  // this.objects.forEach(function(o) {
-  //   if (o.className === 'cat' && o.found) {
-  //     o.move();
-  //   }
-  // });
   this.player.move();
   this.locks.forEach(function(l) {
     l.move();
@@ -148,11 +143,7 @@ Game.prototype.checkCollisions = function() {
   if (!this.objectsFound) {
     this.objects.forEach(function(o, index) {
       if (o.checkPlayerPosition()) {
-        // if (o.className !== 'cat') {
-          this.objects.splice(index, 1);
-        // } else {
-          // this.player.record = true;
-        // }
+        this.objects.splice(index, 1);
       }
     }.bind(this));
   }
@@ -165,7 +156,6 @@ Game.prototype.checkCollisions = function() {
 }
 
 Game.prototype.hasFinishedSetting = function() {
-  // if (this.objects.length === 1 && this.objects[0].found) {
   if (this.objects.length === 0) {
     this.objectsFound = true;
 
