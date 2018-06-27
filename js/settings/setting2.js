@@ -80,6 +80,7 @@ function Setting2(game) {
   // Yarn
 
   this.yarn = {
+    hidden: true,
     x: this.game.canvas.width / 2 + this.ladders.width,
     y: this.game.canvas.height * 3 / 4 - 90
   };
@@ -90,4 +91,23 @@ function Setting2(game) {
     x: this.platforms.sectionWidth / 2,
     y: this.game.canvas.height * 3 / 4 - 90
   };
+
+  // Lock
+
+  this.locks = [
+    {
+      objectHidden: 'yarn',
+      key: {
+        x: this.game.canvas.width - this.platforms.sectionWidth * 2 + 20,
+        y: this.game.canvas.height / 2 - 90
+      }
+    }
+  ];
+
+  this.locks.forEach(function(lock) {
+    lock.box = {
+      x: this[lock.objectHidden].x,
+      y: this[lock.objectHidden].y
+    };
+  }.bind(this));
 }

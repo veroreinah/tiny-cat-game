@@ -1,7 +1,8 @@
-function Objects(game, img, className, x) {
+function Objects(game, img, className, x, hidden) {
   this.game = game;
   this.found = false;
   this.className = className;
+  this.hidden = hidden;
 
   this.x = x;
 
@@ -24,7 +25,7 @@ Objects.prototype.draw = function() {
 }
 
 Objects.prototype.checkPlayerPosition = function() {
-  if (!this.found) {
+  if (!this.found && !this.hidden) {
     var player = this.game.player;
 
     if (player.x >= this.x 

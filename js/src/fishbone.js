@@ -1,5 +1,5 @@
-function Fishbone(game, x, y) {
-  Objects.call(this, game, 'fishbone', 'fishbone', x);
+function Fishbone(game, x, y, hidden) {
+  Objects.call(this, game, 'fishbone', 'fishbone', x, hidden);
 
   this.ratio = 98 / 43;
 

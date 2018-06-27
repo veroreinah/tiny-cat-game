@@ -1,5 +1,5 @@
-function Yarn(game, x, y) {
-  Objects.call(this, game, 'yarn', 'yarn', x);
+function Yarn(game, x, y, hidden) {
+  Objects.call(this, game, 'yarn', 'yarn', x, hidden);
 
   this.ratio = 200 / 127;
 

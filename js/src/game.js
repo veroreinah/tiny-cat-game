@@ -4,7 +4,7 @@ function Game(canvas) {
   this.time = 0;
 
   this.totalSettings = 2;
-  this.currentSetting = 1;
+  this.currentSetting = 2;
 
   this.setUp();
 }
@@ -27,6 +27,7 @@ Game.prototype.setUp = function() {
   this.addObjects();
   this.addLadders();
   this.addPlatforms();
+  this.addLocks();
 }
 
 Game.prototype.update = function(time) {
@@ -34,18 +35,7 @@ Game.prototype.update = function(time) {
 
   this.time = time;
   this.background.update();
-  this.player.checkPosition();
-  if (!this.objectsFound) {
-    this.objects.forEach(function(o, index) {
-      if (o.checkPlayerPosition()) {
-        // if (o.className !== 'cat') {
-          this.objects.splice(index, 1);
-        // } else {
-          // this.player.record = true;
-        // }
-      }
-    }.bind(this));
-  }
+  this.checkCollisions();
   this.hasFinished();
 
   this.draw();
@@ -65,7 +55,12 @@ Game.prototype.draw = function() {
     p.draw();
   });
   this.objects.forEach(function(o) {
-    o.draw();
+    if (!o.hidden) {
+      o.draw();
+    }
+  });
+  this.locks.forEach(function(l) {
+    l.draw();
   });
   this.player.draw();
 }
@@ -78,6 +73,9 @@ Game.prototype.move = function() {
   //   }
   // });
   this.player.move();
+  this.locks.forEach(function(l) {
+    l.move();
+  });
 }
 
 Game.prototype.addLadders = function() {
@@ -113,20 +111,60 @@ Game.prototype.addObjects = function() {
   this.objects.push(new Cat(
     this,
     this.setting.cat.x,
-    this.setting.cat.y
+    this.setting.cat.y,
+    this.setting.cat.hidden
   ));
 
   this.objects.push(new Yarn(
     this,
     this.setting.yarn.x,
-    this.setting.yarn.y
+    this.setting.yarn.y,
+    this.setting.yarn.hidden
   ));
 
   this.objects.push(new Fishbone(
     this,
     this.setting.fishbone.x,
-    this.setting.fishbone.y
+    this.setting.fishbone.y,
+    this.setting.fishbone.hidden
   ));
+}
+
+Game.prototype.addLocks = function() {
+  this.locks = [];
+
+  this.setting.locks.forEach(function(lock) {
+    this.locks.push(new Lock(
+      this,
+      lock.box.x,
+      lock.box.y,
+      lock.key.x,
+      lock.key.y,
+      lock.objectHidden
+    ));
+  }.bind(this));
+}
+
+Game.prototype.checkCollisions = function() {
+  this.player.checkPosition();
+
+  if (!this.objectsFound) {
+    this.objects.forEach(function(o, index) {
+      if (o.checkPlayerPosition()) {
+        // if (o.className !== 'cat') {
+          this.objects.splice(index, 1);
+        // } else {
+          // this.player.record = true;
+        // }
+      }
+    }.bind(this));
+  }
+
+  this.locks.forEach(function(l, index) {
+    if (l.checkPlayerPosition()) {
+      this.locks.splice(index, 1);
+    }
+  }.bind(this));
 }
 
 Game.prototype.hasFinished = function() {

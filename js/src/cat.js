@@ -1,5 +1,5 @@
-function Cat(game, x, y) {
-  Objects.call(this, game, 'cat/idle', 'cat', x);
+function Cat(game, x, y, hidden) {
+  Objects.call(this, game, 'cat/idle', 'cat', x, hidden);
 
   this.ratio = 542 / 474;
   this.image.frames = 10;
