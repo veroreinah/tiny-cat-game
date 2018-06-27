@@ -2,6 +2,7 @@ function Player(game) {
   this.game = game;
   this.speedX = 0;
   this.speedY = 0;
+  this.contKeyPressed = 0;
   this.gravity = 0.1;
 
   this.status = 'idle';
@@ -95,10 +96,16 @@ Player.prototype.moveX = function() {
 
 Player.prototype.events = function() {
   document.onkeydown = function(e) {
+    this.contKeyPressed++;
+
+    console.log(this.speedX);
     switch(e.keyCode) {
       case 37: // Arrow left
         this.speedX = -2;
-        this.changeStatus('walk-backwards');
+        if (this.contKeyPressed % 30) {
+          this.speedX += -(this.contKeyPressed / 10);
+        }
+        this.changeStatus((this.speedX <= -3) ? 'run-backwards' : 'walk-backwards');
         break;
       case 38: // Arrow up
         if (this.canClimb) {
@@ -109,7 +116,10 @@ Player.prototype.events = function() {
         break;
       case 39: // Arrow right
         this.speedX = 2;
-        this.changeStatus('walk');
+        if (this.contKeyPressed % 30) {
+          this.speedX += (this.contKeyPressed / 10);
+        }
+        this.changeStatus((this.speedX >= 3) ? 'run' : 'walk');
         break;
       case 40: // Arrow down
         if (this.canClimb) {
@@ -122,6 +132,7 @@ Player.prototype.events = function() {
   }.bind(this);
 
   document.onkeyup = function(e) {
+    this.contKeyPressed = 0;
     switch(e.keyCode) {
       case 37: // Arrow left
         this.speedX = 0;
