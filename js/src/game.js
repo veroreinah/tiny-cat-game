@@ -36,7 +36,7 @@ Game.prototype.update = function(time) {
   this.time = time;
   this.background.update();
   this.checkCollisions();
-  this.hasFinished();
+  this.hasFinishedSetting();
 
   this.draw();
   this.move();
@@ -48,20 +48,17 @@ Game.prototype.clear = function() {
 
 Game.prototype.draw = function() {
   this.background.draw();
-  this.ladders.forEach(function(l) {
-    l.draw();
-  });
-  this.platforms.forEach(function(p) {
-    p.draw();
-  });
-  this.objects.forEach(function(o) {
-    if (!o.hidden) {
-      o.draw();
-    }
-  });
-  this.locks.forEach(function(l) {
-    l.draw();
-  });
+
+  var items = ['ladders', 'platforms', 'objects', 'locks'];
+  items.forEach(function(item) {
+    this[item].forEach(function(element) {
+      if ((('hidden' in element) && !element.hidden) 
+          || !('hidden' in element)) {
+        element.draw();
+      }
+    }.bind(this));
+  }.bind(this));
+
   this.player.draw();
 }
 
@@ -167,7 +164,7 @@ Game.prototype.checkCollisions = function() {
   }.bind(this));
 }
 
-Game.prototype.hasFinished = function() {
+Game.prototype.hasFinishedSetting = function() {
   // if (this.objects.length === 1 && this.objects[0].found) {
   if (this.objects.length === 0) {
     this.objectsFound = true;
