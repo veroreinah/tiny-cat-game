@@ -38,11 +38,11 @@ Game.prototype.update = function(time) {
   if (!this.objectsFound) {
     this.objects.forEach(function(o, index) {
       if (o.checkPlayerPosition()) {
-        if (o.className !== 'cat') {
+        // if (o.className !== 'cat') {
           this.objects.splice(index, 1);
-        } else {
+        // } else {
           // this.player.record = true;
-        }
+        // }
       }
     }.bind(this));
   }
@@ -130,7 +130,8 @@ Game.prototype.addObjects = function() {
 }
 
 Game.prototype.hasFinished = function() {
-  if (this.objects.length === 1 && this.objects[0].found) {
+  // if (this.objects.length === 1 && this.objects[0].found) {
+  if (this.objects.length === 0) {
     this.objectsFound = true;
 
     var playerBottomY = this.player.y + this.player.height;
@@ -144,7 +145,7 @@ Game.prototype.hasFinished = function() {
       }
 
       if (playerBottomY === this.setting.finish.y
-          && playerRightX > this.setting.finish.x + this.player.width * 2) {
+          && playerRightX > this.setting.finish.x + this.player.width) {
         this.nextSetting();
       }
     }
