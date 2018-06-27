@@ -68,4 +68,8 @@ function Setting1(game) {
     x: this.game.canvas.width / 4 + this.ladders.width + this.platforms.sectionWidth * 1.5,
     y: this.game.canvas.height - 85
   };
+
+  // Lock
+
+  this.locks = [];
 }
