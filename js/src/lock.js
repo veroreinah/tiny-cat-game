@@ -5,12 +5,12 @@ function Lock(game, x, y, keyX, keyY, objectHidden) {
   this.keyFound = false;
 
   this.image = new Image();
-  this.image.src = 'images/misc/lock_blue.png';
+  this.image.src = 'images/misc/lock_yellow.png';
   this.width = 60;
   this.height = 60;
 
   this.imageKey = new Image();
-  this.imageKey.src = 'images/misc/key_blue.png';
+  this.imageKey.src = 'images/misc/key_yellow.png';
   this.keyWidth = 32;
   this.keyHeight = 20;
 
