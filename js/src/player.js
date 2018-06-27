@@ -98,7 +98,6 @@ Player.prototype.events = function() {
   document.onkeydown = function(e) {
     this.contKeyPressed++;
 
-    console.log(this.speedX);
     switch(e.keyCode) {
       case 37: // Arrow left
         this.speedX = -2;
@@ -188,13 +187,14 @@ Player.prototype.checkPositionLadders = function() {
 }
 
 Player.prototype.checkPositionPlatforms = function() {
-  var playerX = this.x + (this.width / 2);
   var playerY = this.y + this.height;
   var onPlatform = false;
 
   for (var i = 0; i < this.game.platforms.length; i++) {
     var p = this.game.platforms[i];
-    if (playerX >= p.x && playerX <= p.x + p.width && playerY <= p.y) {
+    if ((this.x + this.width) >= p.x 
+        && this.x <= p.x + p.width 
+        && playerY <= p.y) {
       this.limitY_bottom = p.y - this.height;
       onPlatform = true;
       break;

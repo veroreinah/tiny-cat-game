@@ -11,6 +11,7 @@ function Game(canvas) {
 
 Game.prototype.setUp = function() {
   this.objectsFound = false;
+  this.end = false;
 
   switch (this.currentSetting) {
     case 1:
@@ -36,10 +37,10 @@ Game.prototype.update = function(time) {
   this.time = time;
   this.background.update();
   this.checkCollisions();
-  this.hasFinishedSetting();
-
   this.draw();
   this.move();
+
+  this.hasFinishedSetting();
 }
 
 Game.prototype.clear = function() {
@@ -190,16 +191,16 @@ Game.prototype.hasFinishedSetting = function() {
 }
 
 Game.prototype.nextSetting = function() {
-  var items = document.getElementsByClassName('item');
-  for (var i = 0; i < items.length; i++) {
-    items[i].classList.remove('found');
-  }
-
   this.currentSetting++;
 
   if (this.currentSetting <= this.totalSettings) {
+    var items = document.getElementsByClassName('item');
+    for (var i = 0; i < items.length; i++) {
+      items[i].classList.remove('found');
+    }
+
     this.setUp();
   } else {
-
+    this.end = true;
   }
 }

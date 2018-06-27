@@ -3,6 +3,7 @@ window.onload = function() {
   var startBtn = document.getElementById("start-button");
   var header = document.getElementsByTagName('header')[0];
   var game;
+  var requestAnimationId;
 
   startBtn.onclick = function() {
     startGame();
@@ -20,6 +21,13 @@ window.onload = function() {
     var timeSec = Math.floor(time / 1000);
     game.update(timeSec);
 
-    window.requestAnimationFrame(updateCanvas);
+    if (!game.end) {
+      requestAnimationId = window.requestAnimationFrame(updateCanvas);
+    } else {
+      window.cancelAnimationFrame(requestAnimationId);
+
+      startBtn.innerHTML = 'Play Again';
+      header.classList.remove('small');
+    }
   }
 };
