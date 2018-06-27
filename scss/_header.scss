@@ -1,0 +1,131 @@
+header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  padding: 10px 0 10px 10px;
+  width: 100%;
+  text-align: center;
+  h1 {
+    display: block;
+    font-size: 70px;
+    font-family: $font;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px $pink;
+    color: $white;
+    transition: font-size .8s;
+  }
+  #start-button {
+    color: $white;
+    padding: 15px;
+    border: 2px solid $white;
+    background: none;
+    text-align: center;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    transition: .3s;
+    cursor: pointer;
+    &:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 3px;
+      right: 0;
+      bottom: 0;
+      background: $white;
+      transition: .3s;
+    }
+    &:hover {
+      &:after {
+        width: 100%;
+        left: 0;
+      }
+    }
+  }
+  .objects-to-find {
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity .8s;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    .item {
+      position: relative;
+      padding: 0 10px;
+      &:after {
+        font-family: $fontIcons;
+        font-weight: 900;
+        content: "\f00d";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        line-height: 30px;
+        font-size: 28px;
+        color: $red;
+        text-shadow: 0 0 10px $white;
+      }
+      img {
+        height: 30px;
+      }
+      &.cat {
+        img {
+          height: 50px;
+        }
+        &:after {
+          line-height: 50px;
+        }
+      }
+      &.found {
+        &:after {
+          content: "\f00c";
+          color: $green;
+        }
+      }
+    }
+  }
+
+  &:after,
+  &:before {
+    content: '';
+    display: block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+  }
+  &:after {
+    width: 180px;
+    height: 257px;
+    background-image: url('#{$imagesPath}girl/happy.png');
+    left: calc(50% - 140px);
+    top: calc(100% + 50px);
+  }
+  &:before {
+    width: 195px;
+    height: 170px;
+    background-image: url('#{$imagesPath}objects/cat/cat-jumping.png');
+    left: calc(50% + 15px);
+    top: calc(100% + 125px);
+  }
+
+  &.small {
+    h1 {
+      font-size: 30px;
+      margin: 0;
+    }
+    #start-button {
+      display: none;
+    }
+    .objects-to-find {
+      opacity: 1;
+    }
+    &:after,
+    &:before {
+      display: none;
+    }
+  }
+}
