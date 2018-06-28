@@ -1,32 +1,34 @@
 window.onload = function() {
   var canvas = document.getElementById('canvas');
   var startBtn = document.getElementById('start-button');
-  var mobileBtns = document.getElementsByClassName('btn-mobile');
   var header = document.getElementsByTagName('header')[0];
-  var mobileControls = document.getElementsByClassName('mobile-controls')[0];
   var game;
   var requestAnimationId;
+
+  var mobileControls = document.getElementsByClassName('mobile-controls')[0];
+  var mobileBtns = document.getElementsByClassName('btn-mobile');
+  var isTouchDevice = 'ontouchstart' in document.documentElement;
 
   for (var i = 0; i < mobileBtns.length; i++) {
     var btn = mobileBtns[i];
 
-    btn.onmousedown = function() {
-      var direction = this.getAttribute('data-direction');
-      var event = new CustomEvent('onmobiledown', {
-        'detail': { 'direction': direction }
-      });
-
-      document.dispatchEvent(event);
-    };
-
-    btn.onmouseup = function() {
-      var direction = this.getAttribute('data-direction');
-      var event = new CustomEvent('onmobileup', {
-        'detail': { 'direction': direction }
-      });
-
-      document.dispatchEvent(event);
-    };
+    if (isTouchDevice) {
+      btn.ontouchstart = function() {
+        createEvents(this, 'onmobiledown');
+      };
+  
+      btn.ontouchend = function() {
+        createEvents(this, 'onmobileup');
+      };
+    } else {
+      btn.onmousedown = function() {
+        createEvents(this, 'onmobiledown');
+      };
+  
+      btn.onmouseup = function() {
+        createEvents(this, 'onmobileup');
+      };
+    }
   }
 
   startBtn.onclick = function() {
@@ -57,5 +59,14 @@ window.onload = function() {
       mobileControls.classList.remove('active');
       canvas.classList.remove('mobile-version');
     }
+  }
+
+  function createEvents(btn, eventName) {
+    var direction = btn.getAttribute('data-direction');
+    var event = new CustomEvent(eventName, {
+      'detail': { 'direction': direction }
+    });
+
+    document.dispatchEvent(event);
   }
 };
