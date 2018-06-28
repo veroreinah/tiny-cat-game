@@ -155,6 +155,8 @@ Game.prototype.checkCollisions = function() {
   if (!this.objectsFound) {
     this.objects.forEach(function(o, index) {
       if (o.checkPlayerPosition()) {
+        createjs.Sound.play(o.className);
+
         this.effects.push(new Effect(
           this,
           o.x,

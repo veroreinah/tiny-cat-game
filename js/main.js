@@ -9,6 +9,8 @@ window.onload = function() {
   var mobileBtns = document.getElementsByClassName('btn-mobile');
   var isTouchDevice = 'ontouchstart' in document.documentElement;
 
+  loadSounds();
+
   for (var i = 0; i < mobileBtns.length; i++) {
     var btn = mobileBtns[i];
 
@@ -68,5 +70,20 @@ window.onload = function() {
     });
 
     document.dispatchEvent(event);
+  }
+
+  function loadSounds() {
+    if (!createjs.Sound.initializeDefaultPlugins()) {
+			return;
+		}
+
+    var assetsPath = "./audio/";
+		var sounds = [
+			{src: "cat-meowing.mp3", id: 'cat'},
+			{src: "chimes.mp3", id: 'yarn'},
+			{src: "chimes.mp3", id: 'fishbone'}
+    ];
+
+		createjs.Sound.registerSounds(sounds, assetsPath);
   }
 };
