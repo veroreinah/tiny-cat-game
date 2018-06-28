@@ -1,10 +1,33 @@
 window.onload = function() {
-  var canvas = document.getElementById("canvas");
-  var startBtn = document.getElementById("start-button");
+  var canvas = document.getElementById('canvas');
+  var startBtn = document.getElementById('start-button');
+  var mobileBtns = document.getElementsByClassName('btn-mobile');
   var header = document.getElementsByTagName('header')[0];
   var mobileControls = document.getElementsByClassName('mobile-controls')[0];
   var game;
   var requestAnimationId;
+
+  for (var i = 0; i < mobileBtns.length; i++) {
+    var btn = mobileBtns[i];
+
+    btn.onmousedown = function() {
+      var direction = this.getAttribute('data-direction');
+      var event = new CustomEvent('onmobiledown', {
+        'detail': { 'direction': direction }
+      });
+
+      document.dispatchEvent(event);
+    };
+
+    btn.onmouseup = function() {
+      var direction = this.getAttribute('data-direction');
+      var event = new CustomEvent('onmobileup', {
+        'detail': { 'direction': direction }
+      });
+
+      document.dispatchEvent(event);
+    };
+  }
 
   startBtn.onclick = function() {
     startGame();
