@@ -39,7 +39,7 @@ Lock.prototype.draw = function() {
       this.keyHeight
     );
   
-    this.game.ctx.save();
+    this.game.ctx.restore();
   }
 }
 

@@ -21,7 +21,7 @@ Objects.prototype.draw = function() {
     this.height
   );
 
-  this.game.ctx.save();
+  this.game.ctx.restore();
 }
 
 Objects.prototype.checkPlayerPosition = function() {
