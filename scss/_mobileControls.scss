@@ -1,0 +1,27 @@
+.mobile-controls {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .mobile-controls {
+    justify-content: space-between;
+    padding: 5px 7.5px 10px;
+    height: 0;
+    transition: height 400ms;
+    > div {
+      flex-grow: 1;
+      padding: 0 2.5px;
+      .btn-mobile {
+        height: 100%;
+        width: 100%;
+        font-size: 24px;
+        background: $white;
+        border: 2px solid $black;
+      }
+    }
+    &.active {
+      display: flex;
+      height: 70px;
+    }
+  }
+}
