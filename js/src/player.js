@@ -109,28 +109,28 @@ Player.prototype.events = function() {
     this.contKeyPressed++;
 
     switch(e.keyCode) {
-      case 37: // Arrow left
+      case this.game.keys.left:
         this.speedX = -2;
         if (this.contKeyPressed % 30) {
           this.speedX += -(this.contKeyPressed / 10);
         }
         this.changeStatus((this.speedX <= -3) ? 'run-backwards' : 'walk-backwards');
         break;
-      case 38: // Arrow up
+      case this.game.keys.up:
         if (this.canClimb) {
           this.gravity = 0;
           this.speedY = -1;
           this.changeStatus('climb');
         }
         break;
-      case 39: // Arrow right
+      case this.game.keys.right:
         this.speedX = 2;
         if (this.contKeyPressed % 30) {
           this.speedX += (this.contKeyPressed / 10);
         }
         this.changeStatus((this.speedX >= 3) ? 'run' : 'walk');
         break;
-      case 40: // Arrow down
+      case this.game.keys.down:
         if (this.canClimb) {
           this.gravity = 0;
           this.speedY = 1;
@@ -143,16 +143,16 @@ Player.prototype.events = function() {
   document.onkeyup = function(e) {
     this.contKeyPressed = 0;
     switch(e.keyCode) {
-      case 37: // Arrow left
+      case this.game.keys.left:
         this.speedX = 0;
         this.changeStatus('idle-backwards');
         break;
-      case 39: // Arrow right
+      case this.game.keys.right:
         this.speedX = 0;
         this.changeStatus('idle');
         break;
-      case 38: // Arrow up
-      case 40: // Arrow down
+      case this.game.keys.up:
+      case this.game.keys.down:
         this.speedY = 0;
         this.changeStatus('idle');
         break;

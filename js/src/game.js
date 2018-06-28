@@ -2,6 +2,12 @@ function Game(canvas) {
   this.canvas = canvas;
   this.ctx = canvas.getContext("2d");
   this.time = 0;
+  this.keys = {
+    left: 37,
+    up: 38,
+    right: 39,
+    down: 40
+  }
 
   this.totalSettings = 2;
   this.currentSetting = 1;
