@@ -1,6 +1,6 @@
 # Tiny Cat
 
-This is my first project as a student in the **Ironhack's** Web Development Bootcamp. It's a game developed using **JavaScript** and **HTML Canvas**.
+This is my first project as a student in the **Ironhack's Web Development Bootcamp**. It's a game developed using **JavaScript** and **HTML Canvas**.
 
 ### The Game
 
